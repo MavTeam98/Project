@@ -17,7 +17,7 @@ public class Project {
             String choice;
             do {
                 System.out.println("-GPA Calculator Main Menu-");
-                System.out.println("A - add semester");
+                System.out.println("A - Calculate semester GPA");
                 System.out.println("B - remove semester");
                 System.out.println("C - show all semesters entered");
                 System.out.println("D - quit");
@@ -27,33 +27,15 @@ public class Project {
                 try
                 {
                     switch (choice) {
-                        case "A":
-                            addSemester();
-                            break;
-                        case "a":
-                            addSemester();
-                            break;
-                        case "B":
-                            removeSemester();
-                            break;
-                        case "b" :
-                            removeSemester();
-                            break;
-                        case "C":
-                            printSemesters();
-                            break;
-                        case "c":
-                            printSemesters();
-                            break;
-                        case "D":
-                            flag = true;
-                            break;
-                        case "d":
-                            flag = true;
-                            break;
-                        default:
-                            throw new IllegalArgumentException();
-
+                        case "A" -> GPACalculator();
+                        case "a" -> GPACalculator();
+                        case "B" -> removeSemester();
+                        case "b" -> removeSemester();
+                        case "C" -> printSemesters();
+                        case "c" -> printSemesters();
+                        case "D" -> flag = true;
+                        case "d" -> flag = true;
+                        default -> throw new IllegalArgumentException();
                     }
                 }
                 catch (IllegalArgumentException e)
@@ -70,7 +52,7 @@ public class Project {
 
         static final ArrayList<String> StoredGPAs = new ArrayList<String>();
 
-        public static void addSemester()
+        public static void GPACalculator()
         {
             String lettergrd;
             double credit;
@@ -94,7 +76,7 @@ public class Project {
             Scanner scanner = new Scanner(System.in);
 
 
-            System.out.print("What semester do you want to input? (fall 2020, spring 2019, etc): ");
+            System.out.print("What semester do you want to calculate? (fall 2020, spring 2019, etc): ");
             String semester = scanner.nextLine();                                                       // storing semester that the user wants to input grades for
 
             System.out.print("Enter the number of classes taken: ");
@@ -109,7 +91,7 @@ public class Project {
                     System.out.print("Please enter the letter grade for class " + (i+1) + ": ");
                     lettergrd = grd.next();                                                             // storing letter grade from user input for class num i+1
 
-                    System.out.print("Please enter the number of credits the course gives: ");
+                    System.out.print("Please enter the number of credits the course gives (1-4): ");
                     credit = grd.nextDouble();                                                          // storing credits that can be earned from that class
                     if (credit > 4 || credit < 1)                                                       // checking user input if the inputted credits is valid
                     {
@@ -180,6 +162,7 @@ public class Project {
                 {
                     System.out.println("Error: Invalid letter grade entered.");
                     System.exit(-1);                                    // exits the program due to error
+
                 }
                 catch (InvalidAlgorithmParameterException e)                    // same as above except this is for the invalid credits entered error
                 {
@@ -198,23 +181,17 @@ public class Project {
 
             System.out.print("Would you like to store this semesters GPA?(y or n): ");
             String choice = scanner.next();
-            switch (choice)
-            {
-                case "y":
-                    StoredGPAs.add(semesterGPA);
-                    System.out.println("Semester successfully stored.\n");
-                    break;
-                case "Y":
-                    StoredGPAs.add(semesterGPA);
-                    System.out.println("Semester successfully stored.\n");
-                    break;
-                case "n":
-                    System.out.println("Semester not stored...\n");
-                    break;
-                case "N":
-                    System.out.println("Semester not stored...\n");
-                    break;
+            switch (choice) {
+                case "y" -> addSemester(semesterGPA);
+                case "Y" -> addSemester(semesterGPA);
+                case "n" -> System.out.println("Semester not stored...\n");
+                case "N" -> System.out.println("Semester not stored...\n");
             }
+        }
+        public static void addSemester(String semester)
+        {
+            StoredGPAs.add(semester);
+            System.out.println("Semester successfully stored.\n");
         }
 
         public static void removeSemester()
@@ -243,8 +220,9 @@ public class Project {
                 for (String value : StoredGPAs)
                 {
                     System.out.println(value);
-                    System.out.println("\n");
+//                    System.out.println("\n");
                 }
+                System.out.println();
             }
             else
             {
