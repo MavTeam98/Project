@@ -1,6 +1,8 @@
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 import java.text.DecimalFormat;
 
@@ -51,6 +53,7 @@ public class Project {
         }
 
         static final ArrayList<String> StoredGPAs = new ArrayList<String>();
+        static final HashMap<String, String> StoredSemesters = new HashMap<String, String>();
 
         public static void GPACalculator()
         {
@@ -80,6 +83,7 @@ public class Project {
             String semester = scanner.nextLine();                                                       // storing semester that the user wants to input grades for
 
             System.out.print("Enter the number of classes taken: ");
+
             int numClasses = scanner.nextInt();                                                         // prompting user for how many classes they wish to enter grades for, for desired semester
 
 
@@ -181,53 +185,62 @@ public class Project {
 
             System.out.print("Would you like to store this semesters GPA?(y or n): ");
             String choice = scanner.next();
+            String gpa = df.format(finalgpa);
             switch (choice) {
-                case "y" -> addSemester(semesterGPA);
-                case "Y" -> addSemester(semesterGPA);
+                case "y" -> addSemester(semester, gpa);
+                case "Y" -> addSemester(semester, gpa);
                 case "n" -> System.out.println("Semester not stored...\n");
                 case "N" -> System.out.println("Semester not stored...\n");
+                default -> System.out.println("Invalid character entered, recalculate semester if you want to store it.");
             }
         }
-        public static void addSemester(String semester)
+        public static void addSemester(String semester, String gpa)
         {
-            StoredGPAs.add(semester);
+
+            StoredSemesters.put(semester,gpa);
             System.out.println("Semester successfully stored.\n");
+
+//            StoredGPAs.add(semester);
+
         }
 
         public static void removeSemester()
         {
             Scanner scanner = new Scanner(System.in);
 
-            System.out.print("Enter semester to remove (fall 2020: 4, spring 2019: 3.51, etc) : ");
+            System.out.print("Enter semester to remove (fall 2020, spring 2019, etc) : ");
             String semester = scanner.nextLine();
 
-            if (!StoredGPAs.contains(semester))
+            if (!StoredSemesters.containsKey(semester))
             {
                 System.out.println("Semester not found.");
             }
-            else if(StoredGPAs.contains(semester))
+            else if(StoredSemesters.containsKey(semester))
             {
                 System.out.println("Semester found, removing...");
-                StoredGPAs.remove(semester);
+                StoredSemesters.remove(semester);
             }
 
         }
 
         public static void printSemesters()
         {
-            if (StoredGPAs.size() > 0)
+            if (StoredSemesters.size() > 0)
             {
-                for (String value : StoredGPAs)
+                for (Map.Entry value : StoredSemesters.entrySet())
                 {
-                    System.out.println(value);
-//                    System.out.println("\n");
+                    Object temp = value.getKey();
+                    String gpa = (String) value.getValue();
+                    System.out.println("Semester: " + temp + " GPA: " + gpa + "\n");
                 }
-                System.out.println();
+
+
             }
             else
             {
                 System.out.println("No stored semesters found.\n");
             }
+
 
 
         }
