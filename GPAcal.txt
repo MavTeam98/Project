@@ -1,0 +1,99 @@
+<html>
+
+	<head>
+		
+		<title> GPA Calculator</title>
+		
+		
+		
+		
+		
+		
+	<head>
+	<body>
+	
+	
+					<center>
+					<p><font color="black"><h1>GPA Calculator</h1></font></p>
+					
+		
+		<CENTER>
+<FORM Name="GPACalcForm"> <!Table Name>
+<TABLE BORDER=5 BGCOLOR=#E6E6FA CELLPADDING="5"> <!Boarder Thickness and Color>
+CELLSPACING="2">
+<TH></TH>
+<TH>Grade</TH> <!Assigning Names for the rows>
+<TH>Credits</TH>
+<TR>
+<TD>Class 1</TD>
+<TD><INPUT TYPE=TEXT SIZE=5 NAME="GR1" ALIGN=TOP <!Fixing input type, font size and assigned variable name>
+MAXLENGTH=3></TD> <!Maximum number of digits to be entered in each box>
+<TD><INPUT TYPE=TEXT SIZE=5 NAME="CR1" ALIGN=TOP 
+MAXLENGTH=3></TD>
+</TR>
+<TR>
+<TD>Class 2</TD>
+<TD><INPUT TYPE=TEXT SIZE=5 NAME="GR2" ALIGN=TOP 
+MAXLENGTH=3></TD>
+<TD><INPUT TYPE=TEXT SIZE=5 NAME="CR2" ALIGN=TOP 
+MAXLENGTH=3></TD>
+</TR>
+<TR>
+<TD>Class 3</TD>
+<TD><INPUT TYPE=TEXT SIZE=5 NAME="GR3" ALIGN=TOP 
+MAXLENGTH=3></TD>
+<TD><INPUT TYPE=TEXT SIZE=5 NAME="CR3" ALIGN=TOP 
+MAXLENGTH=3></TD>
+</TR>
+<TR>
+<TD>Class 4</TD>
+<TD><INPUT TYPE=TEXT SIZE=5 NAME="GR4" ALIGN=TOP 
+MAXLENGTH=3></TD>
+<TD><INPUT TYPE=TEXT SIZE=5 NAME="CR4" ALIGN=TOP 
+MAXLENGTH=3></TD>
+</TR>
+<TR>
+<TD>Class 5</TD>
+<TD><INPUT TYPE=TEXT SIZE=5 NAME="GR5" ALIGN=TOP 
+MAXLENGTH=3></TD>
+<TD><INPUT TYPE=TEXT SIZE=5 NAME="CR5" ALIGN=TOP 
+MAXLENGTH=3></TD>
+</TR>
+<TR>
+<TD>Class 6</TD>
+<TD><INPUT TYPE=TEXT SIZE=5 NAME="GR6" ALIGN=TOP 
+MAXLENGTH=3></TD>
+<TD><INPUT TYPE=TEXT SIZE=5 NAME="CR6" ALIGN=TOP 
+MAXLENGTH=3></TD>
+</TR>
+<TR>
+<TD>Class 7</TD>
+<TD><INPUT TYPE=TEXT SIZE=5 NAME="GR7" ALIGN=TOP 
+MAXLENGTH=3></TD>
+<TD><INPUT TYPE=TEXT SIZE=5 NAME="CR7" ALIGN=TOP 
+MAXLENGTH=3></TD>
+</TR>
+<TR>
+<TD>Class 8</TD>
+<TD><INPUT TYPE=TEXT SIZE=5 NAME="GR8" ALIGN=TOP 
+MAXLENGTH=3></TD>
+<TD><INPUT TYPE=TEXT SIZE=5 NAME="CR8" ALIGN=TOP 
+MAXLENGTH=3></TD>
+</TR>
+<TR ALIGN=CENTER>
+<TD COLSPAN=3><INPUT TYPE="BUTTON" VALUE="Calculate" <!Assigning a button to calculate the total value> 
+NAME="CalcButton"
+OnClick="gpacalc()"></TD>
+<TD COLSPAN=3><INPUT TYPE="RESET" VALUE="RESET" 
+</TR>
+</TABLE>
+</FORM>
+<BR>
+<P>
+
+<P>
+</CENTER>
+
+<BR>
+
+<! This is the Table through HTML without combining with the Java codes of the GPA calculator. >
