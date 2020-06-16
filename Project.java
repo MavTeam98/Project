@@ -26,6 +26,7 @@ public class Project {
                 System.out.println("C - show all semesters entered");
                 System.out.println("D - sort semesters");
                 System.out.println("E - search for a semester");
+                System.out.println("F - overall GPA for stored semesters");
                 System.out.println("X - quit program");
                 System.out.print("Enter choice: ");
                 choice = scanner.next();                                    // take in user input
@@ -43,8 +44,18 @@ public class Project {
                         case "d" -> StoredSemesters = sortSemesters((HashMap<String, String>) StoredSemesters);
                         case "E" -> searchSemesters();
                         case "e" -> searchSemesters();
-                        case "X" -> flag = true;
-                        case "x" -> flag = true;
+                        case "F" -> overallGPA();
+                        case "f" -> overallGPA();
+                        case "X" -> {
+                            System.out.println("Exiting program...");
+                            Thread.sleep(1000);
+                            flag = true;
+                        }
+                        case "x" -> {
+                            System.out.println("Exiting program...");
+                            Thread.sleep(1000);
+                            flag = true;
+                        }
                         default -> throw new IllegalArgumentException();        // if the user enters a invalid option, throws an error that is caught and tells the user input was invalid and to try again.
                     }
                 }
@@ -324,6 +335,34 @@ public class Project {
                 Thread.sleep(1000);
                 initializingMenu((n-1));
             }
+        }
+
+        public static void overallGPA()
+        {
+
+            if (StoredSemesters.size() > 0)
+            {
+                int numGPAS = StoredSemesters.size();
+                double sumOfCredits = 0;
+                for (Map.Entry value : StoredSemesters.entrySet())
+                {
+                    String stringtemp = (String) value.getValue();
+                    double temp = Double.parseDouble(stringtemp);
+                    sumOfCredits += temp;
+                }
+                double finalgpa = sumOfCredits / numGPAS;
+
+
+                System.out.println("Total GPA from all semesters stored: " + finalgpa);
+                System.out.println();
+            }
+            else
+            {
+                System.out.println("No semesters stored!");
+                System.out.println();
+            }
+
+
         }
 
 
