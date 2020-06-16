@@ -20,7 +20,8 @@ public class Project {
                 System.out.println("B - remove semester");
                 System.out.println("C - show all semesters entered");
                 System.out.println("D - sort semesters");
-                System.out.println("E - quit program");
+                System.out.println("E - search for a semester");
+                System.out.println("X - quit program");
                 System.out.print("Enter choice: ");
                 choice = scanner.next();                                    // take in user input
 
@@ -35,8 +36,10 @@ public class Project {
                         case "c" -> printSemesters();
                         case "D" -> StoredSemesters = sortSemesters((HashMap<String, String>) StoredSemesters);
                         case "d" -> StoredSemesters = sortSemesters((HashMap<String, String>) StoredSemesters);
-                        case "E" -> flag = true;
-                        case "e" -> flag = true;
+                        case "E" -> searchSemesters();
+                        case "e" -> searchSemesters();
+                        case "X" -> flag = true;
+                        case "x" -> flag = true;
                         default -> throw new IllegalArgumentException();        // if the user enters a invalid option, throws an error that is caught and tells the user input was invalid and to try again.
                     }
                 }
@@ -243,6 +246,22 @@ public class Project {
 
 
 
+        }
+        public static void searchSemesters()                        // method that searches the stored semesters for an inputted semester and then prints the semester gpa if found
+        {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Enter the semester to search for (2019 fall, 2020 spring, etc): ");
+            String toSearch = scanner.nextLine();
+            if (StoredSemesters.containsKey(toSearch))                                              // if the inputted semester is found, print it out
+            {
+                System.out.println("Semester found: " + toSearch + ": " + StoredSemesters.get(toSearch) + " GPA");
+                System.out.println();
+            }
+            else                                                                                    // if it is not found, tell the user it was not found
+            {
+                System.out.println("Semester not found.");
+                System.out.println();
+            }
         }
 
         public static Map<String, String> sortSemesters(HashMap<String, String> inputMap)               // method to take the package map, storedsemesters, and sort it.
