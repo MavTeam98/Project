@@ -337,20 +337,20 @@ public class Project {
             }
         }
 
-        public static void overallGPA()
+        public static void overallGPA()                                             // method to show the user the overall gpa they have from the stored semesters.
         {
 
             if (StoredSemesters.size() > 0)
             {
-                int numGPAS = StoredSemesters.size();
-                double sumOfCredits = 0;
-                for (Map.Entry value : StoredSemesters.entrySet())
+                int numGPAS = StoredSemesters.size();                               // getting the number of stored semesters
+                double sumOfCredits = 0;                                            // accumulator for credits to be added to
+                for (Map.Entry value : StoredSemesters.entrySet())                  // for loop that iterates through each stored semester, adds the gpa from each semester to the sumofcredits accumulator
                 {
                     String stringtemp = (String) value.getValue();
                     double temp = Double.parseDouble(stringtemp);
                     sumOfCredits += temp;
                 }
-                double finalgpa = sumOfCredits / numGPAS;
+                double finalgpa = sumOfCredits / numGPAS;                           // expression that calculates the overall gpa from all semesters / number of semesters
 
 
                 System.out.println("Total GPA from all semesters stored: " + finalgpa);
