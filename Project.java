@@ -9,8 +9,13 @@ public class Project {
 
     public static class GpaCalculator {
 
-        public static void mainMenu() throws IllegalArgumentException           // main menu method to drive the program until input to quit the program is entered
+        public static void mainMenu() throws IllegalArgumentException, InterruptedException           // main menu method to drive the program until input to quit the program is entered
         {
+
+            System.out.println();
+            System.out.println("This program is designed to calculate GPA's for semesters.\nWith this information given you can search, sort, remove, or print the stored semesters.");  // describe the program to the user.
+            Thread.sleep(1000);
+            initializingMenu(3);                             // simple and small recursion to allow the user to read the progams purpose
             Scanner scanner = new Scanner(System.in);           // scanner variable to take user input
             boolean flag = false;                               // flag variable for the quit command in the method
             String choice;                                      // variable to store the user's input
@@ -58,7 +63,7 @@ public class Project {
 
         static Map<String, String> StoredSemesters = new HashMap<String, String>();  // initializing a package variable to store semesters
 
-        public static void GPACalculator()          // method that calculates the gpa based off of some variables the user inputs. built upon the original code by Sachini
+        public static void GPACalculator() throws InterruptedException          // method that calculates the gpa based off of some variables the user inputs. built upon the original code provided by Sachini
         {
             String lettergrd;
             double credit;
@@ -167,14 +172,16 @@ public class Project {
 
                 catch (InvalidParameterException e)                             // catch error for invalid letter grade that will print the reason why the program terminated
                 {
-                    System.out.println("Error: Invalid letter grade entered.");
-                    System.exit(-1);                                    // exits the program due to error
+                    System.out.println("Error: Invalid letter grade entered, try again.");
+                    System.out.println();
+                    return;                                             // returns the user to the main menu since they entered an invalid letter grade
 
                 }
                 catch (InvalidAlgorithmParameterException e)                    // same as above except this is for the invalid credits entered error
                 {
                     System.out.println("Error: Invalid credits entered.");
-                    System.exit(-1);
+                    System.out.println();
+                    return;                                     // same as above return, but if they enter an invalid credit amount.
                 }
 
 
@@ -185,6 +192,7 @@ public class Project {
             System.out.println("GPA for semester "+ semester + ": " + df.format(finalgpa));     //shows the user the overall gpa they achieved for the given semester
             System.out.println("\n");
             String semesterGPA = semester + ": " + df.format(finalgpa);         // stores users gpa/semester string into a variable
+            Thread.sleep(1000);
 
             System.out.print("Would you like to store this semesters GPA?(y or n): ");                          // asking the user if they want to store the semester for reference later
             String choice = scanner.next();
@@ -211,18 +219,28 @@ public class Project {
         {
             Scanner scanner = new Scanner(System.in);
 
-            System.out.print("Enter semester to remove (2020 fall, 2019 spring etc) : ");             // prompting user to input the semester the want to remove in the specified format
-            String semester = scanner.nextLine();                                               // storing users input as a string that we can use
+            if (StoredSemesters.size() > 0)
+            {
+                System.out.print("Enter semester to remove (2020 fall, 2019 spring etc) : ");             // prompting user to input the semester the want to remove in the specified format
+                String semester = scanner.nextLine();                                               // storing users input as a string that we can use
 
-            if (!StoredSemesters.containsKey(semester))                                         // if the users input is not found in the storedsemesters map, then we tell me that we did not find it.
-            {
-                System.out.println("Semester not found.");
+                if (!StoredSemesters.containsKey(semester))                                         // if the users input is not found in the storedsemesters map, then we tell me that we did not find it.
+                {
+                    System.out.println("Semester not found.");
+                }
+                else if(StoredSemesters.containsKey(semester))                                      // but if it is in the storedsemesters map, we then tell the user we found it and are removing it
+                {
+                    System.out.println("Semester found, removing...");
+                    StoredSemesters.remove(semester);                                               // removing desired semester from the map.
+                }
             }
-            else if(StoredSemesters.containsKey(semester))                                      // but if it is in the storedsemesters map, we then tell the user we found it and are removing it
+            else
             {
-                System.out.println("Semester found, removing...");
-                StoredSemesters.remove(semester);                                               // removing desired semester from the map.
+                System.out.println("No semesters stored to remove!");
+                System.out.println();
             }
+
+
 
         }
 
@@ -252,16 +270,27 @@ public class Project {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Enter the semester to search for (2019 fall, 2020 spring, etc): ");
             String toSearch = scanner.nextLine();
-            if (StoredSemesters.containsKey(toSearch))                                              // if the inputted semester is found, print it out
+
+            if (StoredSemesters.size() > 0)
             {
-                System.out.println("Semester found: " + toSearch + ": " + StoredSemesters.get(toSearch) + " GPA");
+                if (StoredSemesters.containsKey(toSearch))                                              // if the inputted semester is found, print it out
+                {
+                    System.out.println("Semester found: " + toSearch + ": " + StoredSemesters.get(toSearch) + " GPA");
+                    System.out.println();
+                }
+                else                                                                                    // if it is not found, tell the user it was not found
+                {
+                    System.out.println("Semester not found.");
+                    System.out.println();
+                }
+            }
+            else
+            {
+                System.out.println("No stored semesters to search!");
                 System.out.println();
             }
-            else                                                                                    // if it is not found, tell the user it was not found
-            {
-                System.out.println("Semester not found.");
-                System.out.println();
-            }
+
+
         }
 
         public static Map<String, String> sortSemesters(HashMap<String, String> inputMap)               // method to take the package map, storedsemesters, and sort it.
@@ -275,16 +304,30 @@ public class Project {
             }
             else                                                                                        // else, we tell the user there are no semesters to sort and just return the inputted map
             {
-                System.out.println("No semesters to sort.");
+                System.out.println("No stored semesters to sort!");
                 System.out.println();
                 return inputMap;
             }
 
         }
 
+        public static void initializingMenu(int n) throws InterruptedException                          // simple/small recursion method to all the user to read the description of the program before the menu is shown.
+        {
+            if (n == 0)
+            {
+                System.out.println("Initializing Menu...");
+                Thread.sleep(1000);
+            }
+            else
+            {
+                System.out.println(n);
+                Thread.sleep(1000);
+                initializingMenu((n-1));
+            }
+        }
 
 
-        public static void main(String[] args)              // main method to run the program.
+        public static void main(String[] args)  throws InterruptedException             // main method to run the program.
         {
             mainMenu();
 
