@@ -38,8 +38,8 @@ public class Project {
                         case "a" -> GPACalculator();
                         case "B" -> removeSemester();
                         case "b" -> removeSemester();
-                        case "C" -> printSemesters();
-                        case "c" -> printSemesters();
+                        case "C" -> recursivePrint();
+                        case "c" -> recursivePrint();
                         case "D" -> StoredSemesters = sortSemesters((HashMap<String, String>) StoredSemesters);
                         case "d" -> StoredSemesters = sortSemesters((HashMap<String, String>) StoredSemesters);
                         case "E" -> searchSemesters();
@@ -73,6 +73,7 @@ public class Project {
 
 
         static Map<String, String> StoredSemesters = new HashMap<String, String>();  // initializing a package variable to store semesters
+        public static ArrayList<String> temparray = new ArrayList<>(); // initializing a public arraylist so we can recursive print a map.
 
         public static void GPACalculator() throws InterruptedException          // method that calculates the gpa based off of some variables the user inputs. built upon the original code provided by Sachini
         {
@@ -255,27 +256,84 @@ public class Project {
 
         }
 
-        public static void printSemesters()                                 // method to print all semesters that have been stored
+
+
+        public static void maptostring(Map<String,String> input)            // method to put all the contents of the map into an arraylist so we can use recursion to print out the contents
         {
-            if (StoredSemesters.size() > 0)                                 // checking if any semesters have been stored
-            {
-                for (Map.Entry value : StoredSemesters.entrySet())          // if there is atleast one or more semester stored, we then for loop through each key/value and print it out in the stated format.
-                {
-                    Object temp = value.getKey();
-                    String gpa = (String) value.getValue();
-                    System.out.println("Semester: " + temp + " GPA: " + gpa + "\n");
-                }
 
+            int i = 0;                                              // manual iterator
+            for (Map.Entry value : input.entrySet())                // for loop to loop through the contents of the map and store the key + value into an index in the arraylist
+            {
+                String temp1 = (String) value.getKey();
+                String temp2 = (String) value.getValue();
+                String tempString = temp1 + " " + temp2 + ", ";
+                temparray.add(i, tempString);
+                i++;
+            }
+        }
+
+        public static String recursive(int n)                       // method that uses recursion to print all the contents of the arraylist of semesters stored
+        {
+            if (n == 0)
+            {
+                return temparray.get(n);
 
             }
-            else                                                            // if no semesters are currently stored, we tell the user no stored semesters
+            else
             {
-                System.out.println("No stored semesters found.\n");
+                return temparray.get(n) + " " + recursive(n-1);
             }
-
-
+        }
+        public static void recursivePrint()                         // method that pulls the two methods above into one method that prints all semesters that are stored.
+        {
+            if (StoredSemesters.size() > 0)
+            {
+                maptostring(StoredSemesters);
+                int n = temparray.size() -1;
+                System.out.println(recursive(n));           // printing all stored semesters recursively
+                System.out.println();
+                temparray.clear();                          // clears the public array so we can use it again without printing the previous contents
+            }
+            else
+            {
+                System.out.println("No semesters stored!");
+                System.out.println();
+            }
 
         }
+
+
+
+
+
+
+
+
+
+
+
+
+//        public static void printSemesters()                                 // method to print all semesters that have been stored
+//        {
+//            if (StoredSemesters.size() > 0)                                 // checking if any semesters have been stored
+//            {
+//                for (Map.Entry value : StoredSemesters.entrySet())          // if there is atleast one or more semester stored, we then for loop through each key/value and print it out in the stated format.
+//                {
+//                    Object temp = value.getKey();
+//                    String gpa = (String) value.getValue();
+//                    System.out.println("Semester: " + temp + " GPA: " + gpa + "\n");
+//                }
+//
+//
+//            }
+//            else                                                            // if no semesters are currently stored, we tell the user no stored semesters
+//            {
+//                System.out.println("No stored semesters found.\n");
+//            }
+//
+//
+//
+//        }
         public static void searchSemesters()                        // method that searches the stored semesters for an inputted semester and then prints the semester gpa if found
         {
             Scanner scanner = new Scanner(System.in);
